@@ -4,8 +4,8 @@ const menuItems = document.querySelectorAll(".menuItem");
 const products = [
   {
     id: 1,
-    title: "Air Force",
-    price: 119,
+    title: "RTX 4090 SUPER TUF OG OC GDDR6",
+    price: "PROMOÇÃO",
     colors: [
       {
         code: "black",
@@ -19,61 +19,61 @@ const products = [
   },
   {
     id: 2,
-    title: "Air Jordan",
-    price: 149,
+    title: "PC Gamer Completo",
+    price: "Desconto 60%",
     colors: [
       {
-        code: "lightgray",
-        img: "./img/jordan.png",
+        code: "black",
+        img: "./imagens/notebook/10.png",
       },
       {
-        code: "green",
-        img: "./img/jordan2.png",
+        code: "darkblue",
+        img: "./imagens/notebook/07.png",
       },
     ],
   },
   {
     id: 3,
-    title: "Blazer",
-    price: 109,
+    title: "KIT PERIFÉRICOS",
+    price: "Até 50% de desconto",
     colors: [
       {
-        code: "lightgray",
-        img: "./img/blazer.png",
+        code: "gray",
+        img: "./imagens/pc/3.png",
       },
       {
-        code: "green",
-        img: "./img/blazer2.png",
+        code: "lightgray",
+        img: "./imagens/pc/1.png",
       },
     ],
   },
   {
     id: 4,
-    title: "Crater",
-    price: 129,
+    title: "PLACAS DE VÍDEO",
+    price: "Ofertas Especiais",
     colors: [
       {
         code: "black",
-        img: "./img/crater.png",
+        img: "./imagens/pc/2.png",
       },
       {
         code: "lightgray",
-        img: "./img/crater2.png",
+        img: "./imagens/pc/preto.png",
       },
     ],
   },
   {
     id: 5,
-    title: "Hippie",
-    price: 99,
+    title: "NOTEBOOKS DE QUALIDADE",
+    price: "Descontos Exclusivos",
     colors: [
       {
-        code: "gray",
-        img: "./img/hippie.png",
+        code: "black",
+        img: "./imagens/notebook/10.png",
       },
       {
-        code: "black",
-        img: "./img/hippie2.png",
+        code: "gray",
+        img: "./imagens/notebook/07.png",
       },
     ],
   },
@@ -81,57 +81,45 @@ const products = [
 
 let choosenProduct = products[0];
 
+// Elementos da página
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
 const currentProductPrice = document.querySelector(".productPrice");
 const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
 
+// Função para alterar o produto quando clicar no menu
 menuItems.forEach((item, index) => {
   item.addEventListener("click", () => {
-    //change the current slide
     wrapper.style.transform = `translateX(${-100 * index}vw)`;
-
-    //change the choosen product
     choosenProduct = products[index];
 
-    //change texts of currentProduct
+    // Atualizar o conteúdo do produto
     currentProductTitle.textContent = choosenProduct.title;
-    currentProductPrice.textContent = "$" + choosenProduct.price;
+    currentProductPrice.textContent = choosenProduct.price;
     currentProductImg.src = choosenProduct.colors[0].img;
 
-    //assing new colors
+    // Atualizar as cores disponíveis
     currentProductColors.forEach((color, index) => {
       color.style.backgroundColor = choosenProduct.colors[index].code;
-    });
+      color.addEventListener("click", () => {
+          currentProductImg.src = choosenProduct.colors[index].img;
+      });
+  });
   });
 });
 
-currentProductColors.forEach((color, index) => {
-  color.addEventListener("click", () => {
-    currentProductImg.src = choosenProduct.colors[index].img;
-  });
-});
-
+// Tamanhos (se necessário)
 currentProductSizes.forEach((size, index) => {
   size.addEventListener("click", () => {
-    currentProductSizes.forEach((size) => {
-      size.style.backgroundColor = "white";
-      size.style.color = "black";
-    });
-    size.style.backgroundColor = "black";
-    size.style.color = "white";
+    currentProductSizes.forEach((s) => s.classList.remove("selected"));
+    size.classList.add("selected");
   });
 });
 
-const productButton = document.querySelector(".productButton");
-const payment = document.querySelector(".payment");
-const close = document.querySelector(".close");
-
-productButton.addEventListener("click", () => {
-  payment.style.display = "flex";
-});
-
-close.addEventListener("click", () => {
-  payment.style.display = "none";
+currentProductSizes.forEach((size) => {
+  size.addEventListener("click", () => {
+      currentProductSizes.forEach((s) => s.classList.remove("selected"));
+      size.classList.add("selected");
+  });
 });
