@@ -79,7 +79,7 @@ const products = [
   },
 ];
 
-let choosenProduct = products[0];
+let currentProductIndex = 0;
 
 // Elementos da página
 const currentProductImg = document.querySelector(".productImg");
@@ -87,39 +87,68 @@ const currentProductTitle = document.querySelector(".productTitle");
 const currentProductPrice = document.querySelector(".productPrice");
 const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
 
-// Função para alterar o produto quando clicar no menu
-menuItems.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    wrapper.style.transform = `translateX(${-100 * index}vw)`;
-    choosenProduct = products[index];
+// Função para atualizar o produto
+function updateProduct() {
+    const product = products[currentProductIndex];
+    currentProductTitle.textContent = product.title;
+    currentProductPrice.textContent = product.price;
+    currentProductImg.src = product.colors[0].img;
 
-    // Atualizar o conteúdo do produto
-    currentProductTitle.textContent = choosenProduct.title;
-    currentProductPrice.textContent = choosenProduct.price;
-    currentProductImg.src = choosenProduct.colors[0].img;
-
-    // Atualizar as cores disponíveis
+    // Atualizar cores
     currentProductColors.forEach((color, index) => {
-      color.style.backgroundColor = choosenProduct.colors[index].code;
-      color.addEventListener("click", () => {
-          currentProductImg.src = choosenProduct.colors[index].img;
-      });
-  });
-  });
+        color.style.backgroundColor = product.colors[index].code;
+        color.addEventListener("click", () => {
+            currentProductImg.src = product.colors[index].img;
+        });
+    });
+}
+
+// Função para o próximo slide
+function nextSlide() {
+    currentProductIndex = (currentProductIndex + 1) % products.length;
+    wrapper.style.transform = `translateX(-${currentProductIndex * 100}vw)`;
+    updateProduct();
+}
+
+// Função para o slide anterior
+function prevSlide() {
+    currentProductIndex = (currentProductIndex - 1 + products.length) % products.length;
+    wrapper.style.transform = `translateX(-${currentProductIndex * 100}vw)`;
+    updateProduct();
+}
+
+// Eventos do menu
+menuItems.forEach((item, index) => {
+    item.addEventListener("click", () => {
+        currentProductIndex = index;
+        wrapper.style.transform = `translateX(-${index * 100}vw)`;
+        updateProduct();
+    });
 });
 
-// Tamanhos (se necessário)
-currentProductSizes.forEach((size, index) => {
-  size.addEventListener("click", () => {
-    currentProductSizes.forEach((s) => s.classList.remove("selected"));
-    size.classList.add("selected");
-  });
-});
-
+// Eventos dos tamanhos
 currentProductSizes.forEach((size) => {
-  size.addEventListener("click", () => {
-      currentProductSizes.forEach((s) => s.classList.remove("selected"));
-      size.classList.add("selected");
-  });
+    size.addEventListener("click", () => {
+        currentProductSizes.forEach((s) => s.classList.remove("selected"));
+        size.classList.add("selected");
+    });
 });
+
+// Eventos dos botões do slider
+prevButton.addEventListener('click', prevSlide);
+nextButton.addEventListener('click', nextSlide);
+
+// Autoplay do slider
+let autoplayInterval = setInterval(nextSlide, 5000);
+
+// Controle do autoplay com mouse
+wrapper.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+wrapper.addEventListener('mouseleave', () => {
+    autoplayInterval = setInterval(nextSlide, 5000);
+});
+
+// Inicializar primeiro produto
+updateProduct();

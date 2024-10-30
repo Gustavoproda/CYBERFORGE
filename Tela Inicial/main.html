@@ -18,70 +18,61 @@
     <nav id="nav">
         <div class="navTop">
             <div class="navItem">
-                <h2>CYBERFORGE</h2>
-                <title>CYBERFORGE</title>
-                <img src="" alt="">
+                <img src="./img/logo.png" alt="CYBERFORGE" class="logo" style="width: 200px; height: auto;">
             </div>
-            <div class="navItem">
+            <div class="navItem searchContainer">
                 <div class="search">
-                    <input type="text" placeholder="Pesquisar" class="searchInput">
-                    <img src="./img/search.png" width="15" height="15" alt="" class="searchIcon">
+                    <input type="text" placeholder="Busque aqui seu produto" class="searchInput">
+                    <button class="searchButton">
+                        <img src="./img/search.png" width="20" height="20" alt="" class="searchIcon">
+                    </button>
                 </div>
             </div>
-            <div class="navItem">
-                <a href="../index.html" class="loginButton">Logar</a>
+            <div class="navItem userActions">
+                <div class="userMenu">
+                    <a href="#" class="menuLink">Atendimento</a>
+                    <a href="#" class="menuLink">Meus Pedidos</a>
+                    <a href="../index.html" class="loginButton">
+                        <i class="fas fa-user"></i>
+                        Logar
+                    </a>
+                    <a href="#" class="cartButton">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cartCount">0</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="navBottom">
-            <h3 class="menuItem">INICIO</h3>
-            <h3 class="menuItem">CATALOGO</h3>
-            <h3 class="menuItem">COMPARAR</h3>
-            <h3 class="menuItem">NOVIDADES</h3>
-            <h3 class="menuItem">FORJA</h3>
+            <div class="categoryMenu">
+                <button class="allCategories">
+                    <i class="fas fa-bars"></i>
+                    TODAS AS CATEGORIAS
+                </button>
+                <div class="menuItems">
+                    <a href="#" class="menuItem">HARDWARE</a>
+                    <a href="#" class="menuItem">PERIFÉRICOS</a>
+                    <a href="#" class="menuItem">COMPUTADORES</a>
+                    <a href="#" class="menuItem">NOTEBOOKS</a>
+                    <a href="#" class="menuItem">OFERTAS</a>
+                </div>
+            </div>
         </div>
     </nav>
-    <div class="slider">
-        <div class="sliderWrapper">
-            <div class="sliderItem">
+<div class="slider">
+    <div class="sliderWrapper">
+        <div class="sliderItem">
+            <div class="sliderContent">
                 <img src="./imagens/notebook/10.png" alt="" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">SEU PC GAMER</br> AQUI NO</br> CYBERFORGE</h1>
-
-            </div>
-            <div class="sliderItem">
-                <img src="./imagens/pc/3.png" alt="" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">DESKTOP </br> 60%</br> DE DESCONTO</h1>
-                <a href="#product">
-                    <!--<button class="buyButton">COMPRE JÁ!</button> -->
-                </a>
-            </div>
-            <div class="sliderItem">
-                <img src="./imagens/pc/1.png" alt="" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">KIT </br> PERIFÉRICOS</br> DE QUALIDADE</h1>
-                <a href="#product">
-                    <!--<button class="buyButton">ATÉ 50% DE DESCONTO</button>-->
-                </a>
-            </div>
-            <div class="sliderItem">
-                <img src="./imagens/pc/2.png" alt="" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">PLACAS </br> DE</br> VÍDEO</h1>
-                <a href="#product">
-                    <!--<button class="buyButton">FORJAR!</button>-->
-                </a>
-            </div>
-            <div class="sliderItem">
-                <img src="./imagens/notebook/07.png" alt="" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">NOTEBOOKS </br> DE</br> QUALIDADE</h1>
-                <a href="#product">
-                    <!--<button class="buyButton">FORJAR!</button>-->
-                </a>
+                <div class="sliderInfo">
+                    <h1 class="sliderTitle">SEU PC GAMER<br> AQUI NO<br> CYBERFORGE</h1>
+                </div>
             </div>
         </div>
     </div>
+    <button class="sliderButton prev">❮</button>
+    <button class="sliderButton next">❯</button>
+</div>
    
     <div class="features">
         <div class="feature">
@@ -229,6 +220,35 @@
         </div>
     </footer>
     <script src="./app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.sliderWrapper');
+            const slides = document.querySelectorAll('.sliderItem');
+            const prevButton = document.querySelector('.prev');
+            const nextButton = document.querySelector('.next');
+            let currentSlide = 0;
+    
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+    
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlider();
+            }
+    
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlider();
+            }
+    
+            prevButton.addEventListener('click', prevSlide);
+            nextButton.addEventListener('click', nextSlide);
+    
+            // Autoplay
+            setInterval(nextSlide, 5000);
+        });
+    </script>
 </body>
 
 </html>
