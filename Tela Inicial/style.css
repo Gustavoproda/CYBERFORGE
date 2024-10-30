@@ -529,3 +529,17 @@ footer {
     padding: 20px;
   }
 }
+
+.loginButton {
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color:  #201b2c; /* Cor verde, você pode mudar se quiser */
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.loginButton:hover {
+  background-color:  #201b2c; /* Uma cor verde mais escura para o efeito hover */
+}
